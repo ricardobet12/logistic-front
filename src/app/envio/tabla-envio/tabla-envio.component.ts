@@ -17,7 +17,7 @@ export class TablaEnvioComponent implements OnInit, OnChanges {
 
   public listaUsuarios: Array<any> = new Array<any>();
 
-  displayedColumns: string[] = ['idLogisticaMaritima', 'bodegaEntrega', 'placaVehiculo', 'numeroGuia','bodega', 'tipoProducto', 'cantidadProducto', 'opciones'];
+  displayedColumns: string[] = ['idEnvio', 'fechaRegistro', 'fechaEntrada', 'precioEnvio','descuento', 'fkCliente', 'numeroGuia','bodega'];
   dataSource = new MatTableDataSource<Usuario>(this.listaUsuarios);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
