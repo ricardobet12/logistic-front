@@ -1,2 +1,10 @@
 <app-menu></app-menu>
-<p>terrestre works!</p>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%" >
+    <div fxFlex="65%">
+     <app-tabla-terrestre (editUsuario)="editarUsuario($event)" [datoUsuario]="datoUsuario"></app-tabla-terrestre>
+    </div>
+    <div fxFlex="35%">
+      <app-form-terrestre (datoUsuario)="enviarUsuario($event)" [editUsuario]="editUsuario" ></app-form-terrestre>
+    </div>
+  </div>
+  

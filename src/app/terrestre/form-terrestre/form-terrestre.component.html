@@ -1,0 +1,56 @@
+<button (click)="activarForm()" mat-mini-fab color="primary">
+    <mat-icon>add</mat-icon>
+</button><br><br>
+
+<mat-card *ngIf="activarF">
+    <mat-card-header>
+        <mat-icon>group</mat-icon>
+        <mat-card-title>{{editUsuario==null? 'Agregar Terrestre': 'Editar Terrestre'}}</mat-card-title>
+        <mat-card-subtitle>Diligencie los campos *</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="form">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%">
+                <div fxFlex="50%">
+                    <mat-form-field>
+                        <mat-label>Puerto Entrega</mat-label>
+                        <input matInput required formControlName="puertoEntrega" type="text">
+                        <mat-icon matSuffix>perm_identity</mat-icon>
+                        <mat-error *ngIf="form.invalid">{{getErrorMessageBodegaEntrega()}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50%">
+                    <mat-form-field>
+                        <mat-label>Numero flota</mat-label>
+                        <input matInput formControlName="numeroFlota" required type="text">
+                        <mat-icon matSuffix>perm_contact_calendar</mat-icon>
+                        <mat-error *ngIf="form.invalid">{{getErrorMessagePlacaVehiculo()}}</mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%">
+                <div fxFlex="50%">
+                    <mat-form-field>
+                        <mat-label>Tipo producto</mat-label>
+                        <input matInput type="text" formControlName="tipoProducto" required>
+                        <mat-icon matSuffix>lock</mat-icon>
+                        <mat-error *ngIf="form.invalid">{{getErrorMessageTipoProducto()}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50%">
+                    <mat-form-field>
+                        <mat-label>Cantidad producto</mat-label>
+                        <input matInput formControlName="cantidadProducto" type="number" required>
+                        <mat-icon matSuffix>email</mat-icon>
+                        <mat-error *ngIf="form.invalid">{{getErrorMessageCantidadProductos()}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button [disabled]="form.invalid" (click)="prueba()" style="width: 100%;"
+            color="primary">{{editUsuario==null? 'Guardar': 'Editar'}}</button>
+    </mat-card-actions>
+</mat-card>

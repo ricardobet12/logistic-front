@@ -32,6 +32,8 @@ import { MaritimaComponent } from './maritima/maritima.component';
 import { EnvioComponent } from './envio/envio.component';
 import { TablaMaritinaComponent } from './maritima/tabla-maritina/tabla-maritina.component';
 import { FormMaritimaComponent } from './maritima/form-maritima/form-maritima.component';
+import { TablaTerrestreComponent } from './terrestre/tabla-terrestre/tabla-terrestre.component';
+import { FormTerrestreComponent } from './terrestre/form-terrestre/form-terrestre.component';
 
 
 
@@ -57,7 +59,9 @@ import { FormMaritimaComponent } from './maritima/form-maritima/form-maritima.co
     MaritimaComponent,
     EnvioComponent,
     TablaMaritinaComponent,
-    FormMaritimaComponent
+    FormMaritimaComponent,
+    TablaTerrestreComponent,
+    FormTerrestreComponent
   ],
   imports: [
     BrowserModule,
