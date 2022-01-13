@@ -2,12 +2,17 @@
 
 Portal web para el envio de logistica maritima y terrestres.
 
+* Iniciar sesion.
 ![](capturas/login.png)	
+
+* Ventana de bienvenido.
 
 ![](capturas/bienvenido.png)	
 
+* Crud de clientes.
 ![](capturas/clientes.png)	
 
+* Crud de logistica maritima.
 ![](capturas/placaHehiculo.png)	
 
 
