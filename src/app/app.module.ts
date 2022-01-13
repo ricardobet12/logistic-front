@@ -27,6 +27,11 @@ import { TablaClienteComponent } from './cliente/tabla-cliente/tabla-cliente.com
 import { MaterialModule } from './material';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TerrestreComponent } from './terrestre/terrestre.component';
+import { MaritimaComponent } from './maritima/maritima.component';
+import { EnvioComponent } from './envio/envio.component';
+import { TablaMaritinaComponent } from './maritima/tabla-maritina/tabla-maritina.component';
+import { FormMaritimaComponent } from './maritima/form-maritima/form-maritima.component';
 
 
 
@@ -47,7 +52,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ClienteComponent,
     FormClienteComponent,
     TablaClienteComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TerrestreComponent,
+    MaritimaComponent,
+    EnvioComponent,
+    TablaMaritinaComponent,
+    FormMaritimaComponent
   ],
   imports: [
     BrowserModule,

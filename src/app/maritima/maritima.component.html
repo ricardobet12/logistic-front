@@ -1,0 +1,10 @@
+<app-menu></app-menu>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%" >
+    <div fxFlex="65%">
+     <app-tabla-maritina (editUsuario)="editarUsuario($event)" [datoUsuario]="datoUsuario"></app-tabla-maritina>
+    </div>
+    <div fxFlex="35%">
+      <app-form-maritima (datoUsuario)="enviarUsuario($event)" [editUsuario]="editUsuario" ></app-form-maritima>
+    </div>
+  </div>
+  
