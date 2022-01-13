@@ -23,7 +23,7 @@ export class FormTerrestreComponent implements OnInit,OnChanges {
     this.form = this.formBuilder.group({
       idLogisticaTerrestre: new FormControl(''),
       puertoEntrega: new FormControl('', [Validators.required]),
-      numeroFlota: new FormControl('', [Validators.required]),
+      numeroFlota: new FormControl('', [Validators.required,  Validators.pattern('^[a-zA-Z]{3}\[0-9]{4}\[a-zA-Z]{1}$')]),
       tipoProducto: new FormControl('', [Validators.required]),
       cantidadProducto: new FormControl('', [Validators.required]),
     });
@@ -33,11 +33,11 @@ export class FormTerrestreComponent implements OnInit,OnChanges {
     if (this.editUsuario != undefined) {
       this.activarF = true;
       this.form = this.formBuilder.group({
-        idLogisticaTerrestre: new FormControl(this.editUsuario.idCliente),
-        puertoEntrega: new FormControl(this.editUsuario.nombre, [Validators.required]),
-        numeroFlota: new FormControl(this.editUsuario.apellido, [Validators.required]),
-        tipoProducto: new FormControl(this.editUsuario.telefono, [Validators.required]),
-        cantidadProducto: new FormControl(this.editUsuario.correo, [Validators.required]),
+        idLogisticaTerrestre: new FormControl(this.editUsuario.idLogisticaTerrestre),
+        puertoEntrega: new FormControl(this.editUsuario.puertoEntrega, [Validators.required]),
+        numeroFlota: new FormControl(this.editUsuario.numeroFlota, [Validators.required,  Validators.pattern('^[a-zA-Z]{3}\[0-9]{4}\[a-zA-Z]{1}$')]),
+        tipoProducto: new FormControl(this.editUsuario.tipoProducto, [Validators.required]),
+        cantidadProducto: new FormControl(this.editUsuario.cantidadProducto, [Validators.required]),
       });
     }
   }
@@ -67,6 +67,9 @@ export class FormTerrestreComponent implements OnInit,OnChanges {
   getErrorMessagePlacaVehiculo() {
     if (this.form.controls['numeroFlota'].hasError('required')) {
       return 'Debes ingresar un numero de flota';
+    }
+    if (this.form.controls['numeroFlota'].hasError('pattern')) {
+      return 'Debe corresponder a 3 letras iniciales, seguidas de 4 números y finalizando con una letra';
     }
   }
 

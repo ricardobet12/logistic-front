@@ -1,14 +1,15 @@
 import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { FormMaritimaService } from './form-maritima.service';
+import { FormEnvioService } from './form-envio.service';
+
 
 @Component({
-  selector: 'app-form-maritima',
-  templateUrl: './form-maritima.component.html',
-  styleUrls: ['./form-maritima.component.css'],
-  providers: [FormMaritimaService]
+  selector: 'app-form-envio',
+  templateUrl: './form-envio.component.html',
+  styleUrls: ['./form-envio.component.css'],
+  providers: [FormEnvioService]
 })
-export class FormMaritimaComponent implements OnInit,OnChanges {
+export class FormEnvioComponent implements OnInit,OnChanges {
 
   public form: FormGroup;
 
@@ -18,15 +19,24 @@ export class FormMaritimaComponent implements OnInit,OnChanges {
 
   @Input() editUsuario: any;
 
-  constructor(private formBuilder: FormBuilder, public formService: FormMaritimaService) { }
+  constructor(private formBuilder: FormBuilder, public formService: FormEnvioService) { }
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       idLogisticaMaritima: new FormControl(''),
       bodegaEntrega: new FormControl('', [Validators.required]),
-      placaVehiculo: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z]{3}\[0-9]{3}$')]),
-      tipoProducto: new FormControl('', [Validators.required]),
+      placaVehiculo: new FormControl('', [Validators.required]),
+      tipoProducto: new FormControl('', [Validators.required, Validators.pattern('/^[1-9]\d{6,10}$/')]),
       cantidadProducto: new FormControl('', [Validators.required]),
     });
+  }
+
+  getErrorMessageTipoProducto() {
+    if (this.form.controls['tipoProducto'].hasError('required')) {
+      return 'Debes ingresar el tipo de producto';
+    }
+    if (this.form.controls['tipoProducto'].hasError('pattern')) {
+      return 'no cumple con la expresion regular';
+    }
   }
 
   ngOnChanges() {
@@ -35,8 +45,8 @@ export class FormMaritimaComponent implements OnInit,OnChanges {
       this.form = this.formBuilder.group({
         idLogisticaMaritima: new FormControl(this.editUsuario.idCliente),
         bodegaEntrega: new FormControl(this.editUsuario.nombre, [Validators.required]),
-        placaVehiculo: new FormControl(this.editUsuario.apellido, [Validators.required,  Validators.pattern('^[a-zA-Z]{3}\[0-9]{3}$')]),
-        tipoProducto: new FormControl(this.editUsuario.telefono, [Validators.required]),
+        placaVehiculo: new FormControl(this.editUsuario.apellido, [Validators.required]),
+        tipoProducto: new FormControl(this.editUsuario.telefono, [Validators.required, Validators.pattern('/^[1-9]\d{6,10}$/')]),
         cantidadProducto: new FormControl(this.editUsuario.correo, [Validators.required]),
       });
     }
@@ -68,16 +78,9 @@ export class FormMaritimaComponent implements OnInit,OnChanges {
     if (this.form.controls['placaVehiculo'].hasError('required')) {
       return 'Debes ingresar la placa del vehiculo';
     }
-    if (this.form.controls['placaVehiculo'].hasError('pattern')) {
-      return 'Debe tener 3 letras iniciales y 3 números finales';
-    }
   }
 
-  getErrorMessageTipoProducto() {
-    if (this.form.controls['tipoProducto'].hasError('required')) {
-      return 'Debes ingresar el tipo de producto';
-    }
-  }
+
 
   getErrorMessageCantidadProductos() {
     if (this.form.controls['cantidadProducto'].hasError('required')) {
@@ -120,4 +123,3 @@ export class FormMaritimaComponent implements OnInit,OnChanges {
 
 
 }
-
