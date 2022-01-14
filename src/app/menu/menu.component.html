@@ -19,17 +19,15 @@
         <a class="nav-link" routerLink="/cliente"><i class="fas fa-user-plus"></i> Clientes</a>
       </li>
       <li class="nav-item" *ngIf="isAdmin">
-        <a class="nav-link" routerLink="/maritima"><i class="fas fa-shipping-fast"></i> Logistica maritima</a>
-      </li>
-      <li class="nav-item" *ngIf="isAdmin">
-        <a class="nav-link" routerLink="/terrestre"><i class="fas fa-dolly"></i> Logistica terrestre</a>
-      </li>
-      <li class="nav-item" *ngIf="isAdmin">
         <a class="nav-link" routerLink="/envio"><i class="fas fa-clipboard-list"></i> Envios</a>
       </li>
-
-
-
+      <li class="nav-item" *ngIf="isAdmin">
+        <a class="nav-link" routerLink="/maritima"><i class="fas fa-dolly"></i> Logistica maritima</a>
+      </li>
+      <li class="nav-item" *ngIf="isAdmin">
+        <a class="nav-link" routerLink="/terrestre"><i class="fas fa-shipping-fast"></i> Logistica terrestre</a>
+      </li>
+     
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <button *ngIf="!isLogged" class="btn btn-outline-success my-2 my-sm-0" routerLink="/login" type="submit">
