@@ -4,7 +4,7 @@
 
 <mat-card *ngIf="activarF">
     <mat-card-header>
-        <mat-icon>group</mat-icon>
+        <mat-icon>send</mat-icon>
         <mat-card-title>{{editUsuario==null? 'Agregar Envio': 'Editar Envio'}}</mat-card-title>
         <mat-card-subtitle>Diligencie los campos *</mat-card-subtitle>
     </mat-card-header>
@@ -34,7 +34,7 @@
                     <mat-form-field>
                         <mat-label>Precio de envio</mat-label>
                         <input matInput type="number" formControlName="precioEnvio" required>
-                        <mat-icon matSuffix>lock</mat-icon>
+                        <mat-icon matSuffix>money</mat-icon>
                         <mat-error *ngIf="form.invalid">{{getErrorMessagePrecioEnvio()}}</mat-error>
                     </mat-form-field>
                 </div>
@@ -54,7 +54,7 @@
                     <mat-form-field>
                         <mat-label>N° Guia</mat-label>
                         <input matInput formControlName="numeroGuia" type="text" required>
-                        <mat-icon matSuffix>email</mat-icon>
+                        <mat-icon matSuffix>tab</mat-icon>
                         <mat-error *ngIf="form.invalid">{{getErrorMessageNumeroGuia()}}</mat-error>
                     </mat-form-field>
                 </div>
@@ -62,7 +62,7 @@
                     <mat-form-field>
                         <mat-label>Bodega</mat-label>
                         <input matInput formControlName="bodega" type="number" required>
-                        <mat-icon matSuffix>email</mat-icon>
+                        <mat-icon matSuffix>ballot</mat-icon>
                         <mat-error *ngIf="form.invalid">{{getErrorMessageBodega()}}</mat-error>
                     </mat-form-field>
                 </div>

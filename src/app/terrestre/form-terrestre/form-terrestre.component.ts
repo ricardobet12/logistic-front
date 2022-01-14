@@ -1,12 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { TablaEnvioService } from 'src/app/envio/tabla-envio/tabla-envio.service';
 import { FormTerrestreService } from './form-terrestre.service';
 
 @Component({
   selector: 'app-form-terrestre',
   templateUrl: './form-terrestre.component.html',
   styleUrls: ['./form-terrestre.component.css'],
-  providers: [FormTerrestreService]
+  providers: [FormTerrestreService,TablaEnvioService]
 })
 export class FormTerrestreComponent implements OnInit,OnChanges {
 
@@ -18,8 +19,11 @@ export class FormTerrestreComponent implements OnInit,OnChanges {
 
   @Input() editUsuario: any;
 
-  constructor(private formBuilder: FormBuilder, public formService: FormTerrestreService) { }
+  public listaEmpleadosActivos: Array<any> = []
+
+  constructor(private formBuilder: FormBuilder, public formService: FormTerrestreService, public envioService: TablaEnvioService) { }
   ngOnInit(): void {
+    this.consultarEmpleadosActivos()
     this.form = this.formBuilder.group({
       idLogisticaTerrestre: new FormControl(''),
       puertoEntrega: new FormControl('', [Validators.required]),
@@ -30,6 +34,7 @@ export class FormTerrestreComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges() {
+    this.consultarEmpleadosActivos()
     if (this.editUsuario != undefined) {
       this.activarF = true;
       this.form = this.formBuilder.group({
@@ -42,8 +47,16 @@ export class FormTerrestreComponent implements OnInit,OnChanges {
     }
   }
 
+  public consultarEmpleadosActivos():void {
+    this.envioService.getUsers().subscribe(res => {
+      if (res != null) {
+        this.listaEmpleadosActivos = res;
+      }
+    })
+  }
+
   public actualizarUsuario(): void {
-    this.formService.updateUser(this.editUsuario.idCliente,this.form.value).subscribe(res => {
+    this.formService.updateUser(this.editUsuario.idLogisticaTerrestre,this.form.value).subscribe(res => {
       if (res != null) {
         this.editUsuario.puertoEntrega = res.bodegaEntrega;
         this.editUsuario.numeroFlota = res.placaVehiculo;

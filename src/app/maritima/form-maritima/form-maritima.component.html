@@ -4,7 +4,7 @@
 
 <mat-card *ngIf="activarF">
     <mat-card-header>
-        <mat-icon>directionsboat</mat-icon>
+        <mat-icon>directions_boat</mat-icon>
         <mat-card-title>{{editUsuario==null? 'Agregar Maritima': 'Editar Maritima'}}</mat-card-title>
         <mat-card-subtitle>Diligencie los campos *</mat-card-subtitle>
     </mat-card-header>
@@ -15,7 +15,7 @@
                     <mat-form-field>
                         <mat-label>Bodega entrega</mat-label>
                         <input matInput required formControlName="bodegaEntrega" type="text">
-                        <mat-icon matSuffix>check_circle</mat-icon>
+                        <mat-icon matSuffix>ballot</mat-icon>
                         <mat-error *ngIf="form.invalid">{{getErrorMessageBodegaEntrega()}}</mat-error>
                     </mat-form-field>
                 </div>
@@ -23,7 +23,7 @@
                     <mat-form-field>
                         <mat-label>Placa vehiculo</mat-label>
                         <input matInput formControlName="placaVehiculo" required type="text">
-                        <mat-icon matSuffix>done_all</mat-icon>
+                        <mat-icon matSuffix>commute</mat-icon>
                         <mat-error *ngIf="form.invalid">{{getErrorMessagePlacaVehiculo()}}</mat-error>
                     </mat-form-field>
                 </div>
@@ -34,7 +34,7 @@
                     <mat-form-field>
                         <mat-label>Tipo producto</mat-label>
                         <input matInput type="text" formControlName="tipoProducto" required>
-                        <mat-icon matSuffix>lock</mat-icon>
+                        <mat-icon matSuffix>store</mat-icon>
                         <mat-error *ngIf="form.invalid">{{getErrorMessageTipoProducto()}}</mat-error>
                     </mat-form-field>
                 </div>
@@ -42,7 +42,7 @@
                     <mat-form-field>
                         <mat-label>Cantidad producto</mat-label>
                         <input matInput formControlName="cantidadProducto" type="number" required>
-                        <mat-icon matSuffix>email</mat-icon>
+                        <mat-icon matSuffix>timeline</mat-icon>
                         <mat-error *ngIf="form.invalid">{{getErrorMessageCantidadProductos()}}</mat-error>
                     </mat-form-field>
                 </div>

@@ -4,7 +4,7 @@
 
 <mat-card *ngIf="activarF">
     <mat-card-header>
-        <mat-icon>group</mat-icon>
+        <mat-icon>directions_bus_filled</mat-icon>
         <mat-card-title>{{editUsuario==null? 'Agregar Terrestre': 'Editar Terrestre'}}</mat-card-title>
         <mat-card-subtitle>Diligencie los campos *</mat-card-subtitle>
     </mat-card-header>
@@ -15,7 +15,7 @@
                     <mat-form-field>
                         <mat-label>Puerto Entrega</mat-label>
                         <input matInput required formControlName="puertoEntrega" type="text">
-                        <mat-icon matSuffix>perm_identity</mat-icon>
+                        <mat-icon matSuffix>wysiwyg</mat-icon>
                         <mat-error *ngIf="form.invalid">{{getErrorMessageBodegaEntrega()}}</mat-error>
                     </mat-form-field>
                 </div>
@@ -23,7 +23,7 @@
                     <mat-form-field>
                         <mat-label>Numero flota</mat-label>
                         <input matInput formControlName="numeroFlota" required type="text">
-                        <mat-icon matSuffix>perm_contact_calendar</mat-icon>
+                        <mat-icon matSuffix>rv_hookup</mat-icon>
                         <mat-error *ngIf="form.invalid">{{getErrorMessagePlacaVehiculo()}}</mat-error>
                     </mat-form-field>
                 </div>
@@ -34,7 +34,7 @@
                     <mat-form-field>
                         <mat-label>Tipo producto</mat-label>
                         <input matInput type="text" formControlName="tipoProducto" required>
-                        <mat-icon matSuffix>lock</mat-icon>
+                        <mat-icon matSuffix>store</mat-icon>
                         <mat-error *ngIf="form.invalid">{{getErrorMessageTipoProducto()}}</mat-error>
                     </mat-form-field>
                 </div>
@@ -42,10 +42,19 @@
                     <mat-form-field>
                         <mat-label>Cantidad producto</mat-label>
                         <input matInput formControlName="cantidadProducto" type="number" required>
-                        <mat-icon matSuffix>email</mat-icon>
+                        <mat-icon matSuffix>timeline</mat-icon>
                         <mat-error *ngIf="form.invalid">{{getErrorMessageCantidadProductos()}}</mat-error>
                     </mat-form-field>
                 </div>
+                <br>
+                <mat-form-field>
+                    <mat-select formControlName="fkEnvio"  placeholder="Seleccionar Envio">
+                        <mat-select-filter [placeholder]="'Filtro'" [displayMember]="'name'" [array]="listaEmpleadosActivos" (filteredReturn)="listaEmpleadosActivos=$event"></mat-select-filter>
+                        <mat-option *ngFor="let item of listaEmpleadosActivos" [value]="item">
+                            {{item.numeroGuia}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </form>
     </mat-card-content>

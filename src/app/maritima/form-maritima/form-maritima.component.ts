@@ -47,24 +47,25 @@ export class FormMaritimaComponent implements OnInit,OnChanges {
     if (this.editUsuario != undefined) {
       this.activarF = true;
       this.form = this.formBuilder.group({
-        idLogisticaMaritima: new FormControl(this.editUsuario.idCliente),
-        bodegaEntrega: new FormControl(this.editUsuario.nombre, [Validators.required]),
-        placaVehiculo: new FormControl(this.editUsuario.apellido, [Validators.required,  Validators.pattern('^[a-zA-Z]{3}\[0-9]{3}$')]),
-        tipoProducto: new FormControl(this.editUsuario.telefono, [Validators.required]),
-        fkEnvio: new FormControl(''),
-        cantidadProducto: new FormControl(this.editUsuario.correo, [Validators.required]),
+        idLogisticaMaritima: new FormControl(this.editUsuario.idLogisticaMaritima),
+        bodegaEntrega: new FormControl(this.editUsuario.bodegaEntrega, [Validators.required]),
+        placaVehiculo: new FormControl(this.editUsuario.placaVehiculo, [Validators.required,  Validators.pattern('^[a-zA-Z]{3}\[0-9]{3}$')]),
+        tipoProducto: new FormControl(this.editUsuario.tipoProducto, [Validators.required]),
+        fkEnvio: new FormControl(this.editUsuario.fkEnvio != null ? this.editUsuario.fkEnvio.numeroGuia : null),
+        cantidadProducto: new FormControl(this.editUsuario.cantidadProducto, [Validators.required]),
       });
     }
   }
 
   public actualizarUsuario(): void {
-    this.formService.updateUser(this.editUsuario.idCliente,this.form.value).subscribe(res => {
+    this.formService.updateUser(this.editUsuario.idLogisticaMaritima,this.form.value).subscribe(res => {
       if (res != null) {
         this.editUsuario.bodegaEntrega = res.bodegaEntrega;
         this.editUsuario.placaVehiculo = res.placaVehiculo;
         this.editUsuario.tipoProducto = res.tipoProducto;
         this.editUsuario.cantidadProducto = res.cantidadProducto;
         this.editUsuario.idLogisticaMaritima = res.idLogisticaMaritima
+        this.editUsuario.fkEnvio = res.fkEnvio
         this.limpiarCampos();
       }
     }, error => {
