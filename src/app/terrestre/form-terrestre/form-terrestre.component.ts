@@ -29,6 +29,7 @@ export class FormTerrestreComponent implements OnInit,OnChanges {
       puertoEntrega: new FormControl('', [Validators.required]),
       numeroFlota: new FormControl('', [Validators.required,  Validators.pattern('^[a-zA-Z]{3}\[0-9]{4}\[a-zA-Z]{1}$')]),
       tipoProducto: new FormControl('', [Validators.required]),
+      fkEnvio: new FormControl(null),
       cantidadProducto: new FormControl('', [Validators.required]),
     });
   }
@@ -42,6 +43,7 @@ export class FormTerrestreComponent implements OnInit,OnChanges {
         puertoEntrega: new FormControl(this.editUsuario.puertoEntrega, [Validators.required]),
         numeroFlota: new FormControl(this.editUsuario.numeroFlota, [Validators.required,  Validators.pattern('^[a-zA-Z]{3}\[0-9]{4}\[a-zA-Z]{1}$')]),
         tipoProducto: new FormControl(this.editUsuario.tipoProducto, [Validators.required]),
+        fkEnvio: new FormControl(this.editUsuario.fkEnvio != null ? this.editUsuario.fkEnvio.numeroGuia : null),
         cantidadProducto: new FormControl(this.editUsuario.cantidadProducto, [Validators.required]),
       });
     }
@@ -63,6 +65,7 @@ export class FormTerrestreComponent implements OnInit,OnChanges {
         this.editUsuario.tipoProducto = res.tipoProducto;
         this.editUsuario.cantidadProducto = res.cantidadProducto;
         this.editUsuario.idLogisticaTerrestre = res.idLogisticaMaritima
+        this.editUsuario.fkEnvio = res.fkEnvio
         this.limpiarCampos();
       }
     }, error => {

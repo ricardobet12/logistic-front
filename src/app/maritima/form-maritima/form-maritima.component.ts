@@ -29,7 +29,7 @@ export class FormMaritimaComponent implements OnInit,OnChanges {
       bodegaEntrega: new FormControl('', [Validators.required]),
       placaVehiculo: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z]{3}\[0-9]{3}$')]),
       tipoProducto: new FormControl('', [Validators.required]),
-      fkEnvio: new FormControl(''),
+      fkEnvio: new FormControl(null),
       cantidadProducto: new FormControl('', [Validators.required]),
     });
   }

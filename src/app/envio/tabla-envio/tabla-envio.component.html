@@ -15,13 +15,13 @@
     <!-- Name Column -->
     <ng-container matColumnDef="fechaRegistro">
       <th mat-header-cell *matHeaderCellDef> Fecha Registro </th>
-      <td mat-cell *matCellDef="let element"> {{element.fechaRegistro}} </td>
+      <td mat-cell *matCellDef="let element"> 	{{element.fechaRegistro | date:'mediumDate'}} </td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="fechaEntrada">
       <th mat-header-cell *matHeaderCellDef> Fecha Entrada </th>
-      <td mat-cell *matCellDef="let element"> {{element.fechaEntrada}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.fechaEntrada | date:'mediumDate'}}</td>
     </ng-container>
 
     <!-- Weight Column -->
