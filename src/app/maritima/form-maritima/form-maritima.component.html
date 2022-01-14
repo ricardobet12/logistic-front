@@ -46,6 +46,15 @@
                         <mat-error *ngIf="form.invalid">{{getErrorMessageCantidadProductos()}}</mat-error>
                     </mat-form-field>
                 </div>
+                <br>
+                <mat-form-field>
+                    <mat-select formControlName="fkEnvio"  placeholder="Seleccionar Envio">
+                        <mat-select-filter [placeholder]="'Filtro'" [displayMember]="'name'" [array]="listaEmpleadosActivos" (filteredReturn)="listaEmpleadosActivos=$event"></mat-select-filter>
+                        <mat-option *ngFor="let item of listaEmpleadosActivos" [value]="item">
+                            {{item.numeroGuia}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </form>
     </mat-card-content>

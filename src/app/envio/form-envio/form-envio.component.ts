@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { TablaClienteService } from 'src/app/cliente/tabla-cliente/tabla-cliente.service';
 import { FormEnvioService } from './form-envio.service';
 
 
@@ -7,7 +8,7 @@ import { FormEnvioService } from './form-envio.service';
   selector: 'app-form-envio',
   templateUrl: './form-envio.component.html',
   styleUrls: ['./form-envio.component.css'],
-  providers: [FormEnvioService]
+  providers: [FormEnvioService,TablaClienteService]
 })
 export class FormEnvioComponent implements OnInit,OnChanges {
 
@@ -19,35 +20,52 @@ export class FormEnvioComponent implements OnInit,OnChanges {
 
   @Input() editUsuario: any;
 
-  constructor(private formBuilder: FormBuilder, public formService: FormEnvioService) { }
+  public listaEmpleadosActivos: Array<any> = []
+
+  constructor(private formBuilder: FormBuilder, public formService: FormEnvioService, public clienteService: TablaClienteService) { }
   ngOnInit(): void {
+    this.consultarEmpleadosActivos()
     this.form = this.formBuilder.group({
-      idLogisticaMaritima: new FormControl(''),
-      bodegaEntrega: new FormControl('', [Validators.required]),
-      placaVehiculo: new FormControl('', [Validators.required]),
-      tipoProducto: new FormControl('', [Validators.required, Validators.pattern('/^[1-9]\d{6,10}$/')]),
-      cantidadProducto: new FormControl('', [Validators.required]),
+      idEnvio: new FormControl(''),
+      fechaRegistro: new FormControl('', [Validators.required]),
+      fechaEntrada: new FormControl('', [Validators.required]),
+      precioEnvio: new FormControl('', [Validators.required, ]),
+      fkCliente: new FormControl('', [Validators.required]),
+      numeroGuia: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]{10}')]),
+      bodega: new FormControl('', [Validators.required]),
     });
   }
 
-  getErrorMessageTipoProducto() {
-    if (this.form.controls['tipoProducto'].hasError('required')) {
+  public consultarEmpleadosActivos():void {
+    this.clienteService.getUsers().subscribe(res => {
+      if (res != null) {
+        this.listaEmpleadosActivos = res;
+      }
+    })
+  }
+
+
+  getErrorMessageNumeroGuia() {
+    if (this.form.controls['numeroGuia'].hasError('required')) {
       return 'Debes ingresar el tipo de producto';
     }
-    if (this.form.controls['tipoProducto'].hasError('pattern')) {
-      return 'no cumple con la expresion regular';
+    if (this.form.controls['numeroGuia'].hasError('pattern')) {
+      return 'Numero único alfanumérico de 10 dígitos';
     }
   }
 
   ngOnChanges() {
+    this.consultarEmpleadosActivos()
     if (this.editUsuario != undefined) {
       this.activarF = true;
       this.form = this.formBuilder.group({
-        idLogisticaMaritima: new FormControl(this.editUsuario.idCliente),
-        bodegaEntrega: new FormControl(this.editUsuario.nombre, [Validators.required]),
-        placaVehiculo: new FormControl(this.editUsuario.apellido, [Validators.required]),
-        tipoProducto: new FormControl(this.editUsuario.telefono, [Validators.required, Validators.pattern('/^[1-9]\d{6,10}$/')]),
-        cantidadProducto: new FormControl(this.editUsuario.correo, [Validators.required]),
+        idEnvio: new FormControl(this.editUsuario.idEnvio),
+        fechaRegistro: new FormControl(this.editUsuario.fechaRegistro, [Validators.required]),
+        fechaEntrada: new FormControl(this.editUsuario.fechaEntrada, [Validators.required]),
+        precioEnvio: new FormControl(this.editUsuario.precioEnvio, [Validators.required]),
+        fkCliente: new FormControl(this.editUsuario.fkCliente),
+        numeroGuia: new FormControl(this.editUsuario.numeroGuia, [Validators.required, Validators.pattern('^[a-zA-Z0-9]{10}')]),
+        bodega: new FormControl(this.editUsuario.bodega, [Validators.required]),
       });
     }
   }
@@ -68,26 +86,18 @@ export class FormEnvioComponent implements OnInit,OnChanges {
   }
 
 
-  getErrorMessageBodegaEntrega() {
-    if (this.form.controls['bodegaEntrega'].hasError('required')) {
+  getErrorMessageBodega() {
+    if (this.form.controls['bodega'].hasError('required')) {
       return 'Debes ingresar una bodega';
     }
   }
 
-  getErrorMessagePlacaVehiculo() {
-    if (this.form.controls['placaVehiculo'].hasError('required')) {
-      return 'Debes ingresar la placa del vehiculo';
+  getErrorMessagePrecioEnvio() {
+    if (this.form.controls['precioEnvio'].hasError('required')) {
+      return 'Debes ingresar el precio';
     }
   }
-
-
-
-  getErrorMessageCantidadProductos() {
-    if (this.form.controls['cantidadProducto'].hasError('required')) {
-      return 'Debes ingresar la cantidad de productos';
-    }
  
-  }
 
   public limpiarCampos(): void {
     this.form.reset()
@@ -103,6 +113,7 @@ export class FormEnvioComponent implements OnInit,OnChanges {
 
   
   public guardarUsuario(): void {
+    console.log(this.form.value)
     this.formService.saveUser(this.form.value).subscribe(res => {
       if (res != null) {
         console.log(res)

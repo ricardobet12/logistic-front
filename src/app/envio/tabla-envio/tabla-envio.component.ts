@@ -43,7 +43,7 @@ export class TablaEnvioComponent implements OnInit, OnChanges {
     this.listaUsuarios.push(u)
     this.dataSource = new MatTableDataSource(this.listaUsuarios);
     this.dataSource.paginator = this.paginator;
-    this.openSnackBar('Usuario guardado con exito', 'Exito')
+    this.openSnackBar('Envio guardado con exito', 'Exito')
   }
 
   public obtenerUsuarios(): void {

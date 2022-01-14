@@ -8,20 +8,20 @@ import { environment } from '../../../environments/environment';
 })
 export class TablaEnvioService {
 
-  maritimaURL = environment.maritimaURL;
+  envioURL = environment.envioURL;
   
   constructor(private http: HttpClient) { }
 
   public getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.maritimaURL);
+    return this.http.get<any[]>(this.envioURL);
   }
 
     public deleteUsers(id:number): Observable<any> {
-    return this.http.delete<any>(this.maritimaURL + 'eliminar/'+id);
+    return this.http.delete<any>(this.envioURL + 'eliminar/'+id);
   }
 
   public updateUser(id: number,usuario:any): Observable<any> {
-    return this.http.put<any>(this.maritimaURL +id, usuario);
+    return this.http.put<any>(this.envioURL +id, usuario);
   }
 
 }

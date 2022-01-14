@@ -8,6 +8,7 @@ export const environment = {
   authURL: 'http://localhost:8080/auth/',
   clienteURL: 'http://localhost:8080/clientes/',
   maritimaURL: 'http://localhost:8080/maritima/',
+  envioURL: 'http://localhost:8080/envio/',
   terrestreURL: 'http://localhost:8080/terrestre/',
   changePasswordURL: 'http://localhost:8080/email-password/',
   apiUrl: 'http://localhost:8080'

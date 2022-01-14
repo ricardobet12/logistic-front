@@ -1,12 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { TablaEnvioService } from 'src/app/envio/tabla-envio/tabla-envio.service';
 import { FormMaritimaService } from './form-maritima.service';
 
 @Component({
   selector: 'app-form-maritima',
   templateUrl: './form-maritima.component.html',
   styleUrls: ['./form-maritima.component.css'],
-  providers: [FormMaritimaService]
+  providers: [FormMaritimaService,TablaEnvioService]
 })
 export class FormMaritimaComponent implements OnInit,OnChanges {
 
@@ -18,18 +19,31 @@ export class FormMaritimaComponent implements OnInit,OnChanges {
 
   @Input() editUsuario: any;
 
-  constructor(private formBuilder: FormBuilder, public formService: FormMaritimaService) { }
+  public listaEmpleadosActivos: Array<any> = []
+
+  constructor(private formBuilder: FormBuilder, public formService: FormMaritimaService, public envioService: TablaEnvioService) { }
   ngOnInit(): void {
+    this.consultarEmpleadosActivos()
     this.form = this.formBuilder.group({
       idLogisticaMaritima: new FormControl(''),
       bodegaEntrega: new FormControl('', [Validators.required]),
       placaVehiculo: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z]{3}\[0-9]{3}$')]),
       tipoProducto: new FormControl('', [Validators.required]),
+      fkEnvio: new FormControl(''),
       cantidadProducto: new FormControl('', [Validators.required]),
     });
   }
 
+  public consultarEmpleadosActivos():void {
+    this.envioService.getUsers().subscribe(res => {
+      if (res != null) {
+        this.listaEmpleadosActivos = res;
+      }
+    })
+  }
+
   ngOnChanges() {
+    this.consultarEmpleadosActivos()
     if (this.editUsuario != undefined) {
       this.activarF = true;
       this.form = this.formBuilder.group({
@@ -37,6 +51,7 @@ export class FormMaritimaComponent implements OnInit,OnChanges {
         bodegaEntrega: new FormControl(this.editUsuario.nombre, [Validators.required]),
         placaVehiculo: new FormControl(this.editUsuario.apellido, [Validators.required,  Validators.pattern('^[a-zA-Z]{3}\[0-9]{3}$')]),
         tipoProducto: new FormControl(this.editUsuario.telefono, [Validators.required]),
+        fkEnvio: new FormControl(''),
         cantidadProducto: new FormControl(this.editUsuario.correo, [Validators.required]),
       });
     }
